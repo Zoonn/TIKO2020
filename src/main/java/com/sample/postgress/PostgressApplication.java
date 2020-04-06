@@ -9,6 +9,7 @@ public class PostgressApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(PostgressApplication.class, args);
 	}
+	system.out.print("Moi")
 
 }
 
