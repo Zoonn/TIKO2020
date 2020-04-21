@@ -12,41 +12,41 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.sample.postgress.entity.Employee;
-import com.sample.postgress.service.EmployeeService;
+import com.sample.postgress.entity.Asiakas;
+import com.sample.postgress.service.AsiakasService;
 
 @RestController
 @RequestMapping("/postgressApp")
 public class ApplicationController {
 
 	@Resource 
-	EmployeeService employeeService;
+	AsiakasService AsiakasService;
 	
-	@GetMapping(value = "/employeeList")
-	public List<Employee> getEmployees() {
-		return employeeService.findAll();
+	@GetMapping(value = "/AsiakasList")
+	public List<Asiakas> getAsiakass() {
+		return AsiakasService.findAll();
 	
 	}
 	
 	@PostMapping(value = "/createEmp")
-	public void createEmployee(@RequestBody Employee emp) {
-		 employeeService.insertEmployee(emp);
+	public void createAsiakas(@RequestBody Asiakas emp) {
+		 AsiakasService.insertAsiakas(emp);
 	
 	}
 	@PutMapping(value = "/updateEmp")
-	public void updateEmployee(@RequestBody Employee emp) {
-		 employeeService.updateEmployee(emp);
+	public void updateAsiakas(@RequestBody Asiakas emp) {
+		 AsiakasService.updateAsiakas(emp);
 	
 	}
 	@PutMapping(value = "/executeUpdateEmp")
-	public void executeUpdateEmployee(@RequestBody Employee emp) {
-		 employeeService.executeUpdateEmployee(emp);
+	public void executeUpdateAsiakas(@RequestBody Asiakas emp) {
+		 AsiakasService.executeUpdateAsiakas(emp);
 	
 	}
 	
 	@DeleteMapping(value = "/deleteEmpById")
-	public void deleteEmployee(@RequestBody Employee emp) {
-		 employeeService.deleteEmployee(emp);
+	public void deleteAsiakas(@RequestBody Asiakas emp) {
+		 AsiakasService.deleteAsiakas(emp);
 	
 	}
 	

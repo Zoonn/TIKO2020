@@ -9,64 +9,83 @@ import java.util.Map;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.PreparedStatementCallback;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
-import com.sample.postgress.entity.Employee;
-import com.sample.postgress.mapper.EmployeeRowMapper;
+import com.sample.postgress.entity.Tyoluettelo;
+import com.sample.postgress.mapper.TyoluetteloRowMapper;
+
 @Repository
-public class EmployeeDaoImpl implements EmployeeDao{
+public class TyoluetteloDaoImpl implements TyoluetteloDao{
 	
-	public EmployeeDaoImpl(NamedParameterJdbcTemplate template) {  
+	public TyoluetteloDaoImpl(NamedParameterJdbcTemplate template) {  
         this.template = template;  
-}  
+    }  
 	NamedParameterJdbcTemplate template;  
 
 	@Override
-	public List<Employee> findAll() {
-		return template.query("select * from employee", new EmployeeRowMapper());
+	public List<Tyoluettelo> findAll() {
+		return template.query("select * from tyoluettelo", new TyoluetteloRowMapper());
 	}
 	@Override
-	public void insertEmployee(Employee emp) {
-		 final String sql = "insert into employee(employeeId, employeeName , employeeAddress,employeeEmail) values(:employeeId,:employeeName,:employeeEmail,:employeeAddress)";
+	public void insertTyoluettelo(Tyoluettelo tyoluettelo) {
+		 final String sql = "insert into tyoluettelo(sopimusid, tyoid, maara, alennus)" +
+		                    " values(:sopimusid,:tyoid,:maara, :alennus)";
 		 
 	        KeyHolder holder = new GeneratedKeyHolder();
 	        SqlParameterSource param = new MapSqlParameterSource()
-					.addValue("employeeId", emp.getEmployeeId())
-					.addValue("employeeName", emp.getEmployeeName())
-					.addValue("employeeEmail", emp.getEmployeeEmail())
-					.addValue("employeeAddress", emp.getEmployeeAddress());
+					.addValue("sopimusid", tyoluettelo.getsopimusid())
+					.addValue("maara", tyoluettelo.getmaara())
+					.addValue("tyoid", tyoluettelo.gettyoid())
+					.addValue("alennus", tyoluettelo.getalennus());
 	        template.update(sql,param, holder);
-	 
 	}
 	
 	@Override
-	public void updateEmployee(Employee emp) {
-		 final String sql = "update employee set employeeName=:employeeName, employeeAddress=:employeeAddress, employeeEmail=:employeeEmail where employeeId=:employeeId";
+	public void updateTyoluettelo(Tyoluettelo tyoluettelo) {
+		 final String sql = "update tyoluettelo set sopimusid=:sopimusid, tyoid=:tyoid, maara=:maara, "+
+		                    "alennus=:alennus, where sopimusid=:sopimusid";
 		 
 	        KeyHolder holder = new GeneratedKeyHolder();
 	        SqlParameterSource param = new MapSqlParameterSource()
-					.addValue("employeeId", emp.getEmployeeId())
-					.addValue("employeeName", emp.getEmployeeName())
-					.addValue("employeeEmail", emp.getEmployeeEmail())
-					.addValue("employeeAddress", emp.getEmployeeAddress());
+					.addValue("sopimusid", tyoluettelo.getsopimusid())
+					.addValue("maara", tyoluettelo.getmaara())
+					.addValue("tyoid", tyoluettelo.gettyoid())
+					.addValue("alennus", tyoluettelo.getalennus());
 	        template.update(sql,param, holder);
-	 
 	}
 	
 	@Override
-	public void executeUpdateEmployee(Employee emp) {
-		 final String sql = "update employee set employeeName=:employeeName, employeeAddress=:employeeAddress, employeeEmail=:employeeEmail where employeeId=:employeeId";
+	public void executeUpdateTyoluettelo(Tyoluettelo tyoluettelo) {
+		 final String sql = "update tyoluettelo set sopimusid=:sopimusid, tyoid=:tyoid, maara=:maara, " +
+		                    "alennus=:alennus, tila=:tila where sopimusid=:sopimusid";
 			 
-
 		 Map<String,Object> map=new HashMap<String,Object>();  
-		 map.put("employeeId", emp.getEmployeeId());
-		 map.put("employeeName", emp.getEmployeeName());
-		 map.put("employeeEmail", emp.getEmployeeEmail());
-		 map.put("employeeAddress", emp.getEmployeeAddress());
+		 map.put("sopimusid", tyoluettelo.getsopimusid());
+		 map.put("maara", tyoluettelo.getmaara());
+		 map.put("tyoid", tyoluettelo.gettyoid());
+		 map.put("alennus", tyoluettelo.getalennus());
+		 ;
+
+		 template.execute(sql,map,new PreparedStatementCallback<Object>() {  
+			    @Override  
+			    public Object doInPreparedStatement(PreparedStatement ps)  
+			            throws SQLException, DataAccessException {  
+			        return ps.executeUpdate();  
+			    }  
+			});  
+	}
+	
+	@Override
+	public void deleteTyoluettelo(Tyoluettelo tyoluettelo) {
+		 final String sql = "delete from tyoluettelo where sopimusid=:sopimusid";
+			 
+		 Map<String,Object> map=new HashMap<String,Object>();  
+		 map.put("sopimusid", tyoluettelo.getsopimusid());
 	
 		 template.execute(sql,map,new PreparedStatementCallback<Object>() {  
 			    @Override  
@@ -75,27 +94,5 @@ public class EmployeeDaoImpl implements EmployeeDao{
 			        return ps.executeUpdate();  
 			    }  
 			});  
-
-	 
-	}
-	
-	@Override
-	public void deleteEmployee(Employee emp) {
-		 final String sql = "delete from employee where employeeId=:employeeId";
-			 
-
-		 Map<String,Object> map=new HashMap<String,Object>();  
-		 map.put("employeeId", emp.getEmployeeId());
-	
-		 template.execute(sql,map,new PreparedStatementCallback<Object>() {  
-			    @Override  
-			    public Object doInPreparedStatement(PreparedStatement ps)  
-			            throws SQLException, DataAccessException {  
-			        return ps.executeUpdate();  
-			    }  
-			});  
-
-	 
-	}
-	
+	}	
 }
