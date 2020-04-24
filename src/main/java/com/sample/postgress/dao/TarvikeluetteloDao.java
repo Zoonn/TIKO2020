@@ -8,11 +8,11 @@ public interface TarvikeluetteloDao {
 
 	List<Tarvikeluettelo> findAll();
 
-	void insertTarvikeluettelo(Tarvikeluettelo emp);
+	void insertTarvikeluettelo(Tarvikeluettelo tarvikeluettelo);
 
-	void updateTarvikeluettelo(Tarvikeluettelo emp);
+	void updateTarvikeluettelo(Tarvikeluettelo tarvikeluettelo);
 
-	void executeUpdateTarvikeluettelo(Tarvikeluettelo emp);
+	void executeUpdateTarvikeluettelo(Tarvikeluettelo tarvikeluettelo);
 
-	public void deleteTarvikeluettelo(Tarvikeluettelo emp);
+	public void deleteTarvikeluettelo(Tarvikeluettelo tarvikeluettelo);
 }

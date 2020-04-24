@@ -12,9 +12,10 @@ public class SopimusRowMapper implements RowMapper<Sopimus> {
 	@Override
 	public Sopimus mapRow(ResultSet rs, int arg1) throws SQLException {
 		Sopimus emp = new Sopimus();
-		emp.setsopimusid(rs.getInt(1));
-		emp.setkuvaus(rs.getString("kuvaus tähän"));
-		emp.setosoite(rs.getString("Mielikuvituspolku 123, Helsinki 00100"));
+		emp.setsopimusid(rs.getInt("sopimusid"));
+		emp.setkuvaus(rs.getString("kuvaus"));
+		emp.setosoite(rs.getString("osoite"));
+		emp.setasiakasid(rs.getInt("asiakasid"));
  
         return emp;
 	}

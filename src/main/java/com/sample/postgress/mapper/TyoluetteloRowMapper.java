@@ -12,9 +12,10 @@ public class TyoluetteloRowMapper implements RowMapper<Tyoluettelo> {
 	@Override
 	public Tyoluettelo mapRow(ResultSet rs, int arg1) throws SQLException {
 		Tyoluettelo tyoluettelo = new Tyoluettelo();
-		tyoluettelo.setsopimusid(rs.getInt(1));
-		tyoluettelo.settyoid(rs.getInt(01));
-		tyoluettelo.setmaara(rs.getInt(250));
+		tyoluettelo.setsopimusid(rs.getInt("sopimusid"));
+		tyoluettelo.settyoid(rs.getInt("tyoid"));
+		tyoluettelo.setmaara(rs.getInt("maara"));
+		tyoluettelo.setalennus(rs.getInt("alennus"));
  
         return tyoluettelo;
 	}

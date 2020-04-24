@@ -17,38 +17,36 @@ import com.sample.postgress.service.AsiakasService;
 
 @RestController
 @RequestMapping("/postgressApp")
-public class ApplicationController {
+public class AsiakasController {
 
 	@Resource 
 	AsiakasService AsiakasService;
 	
 	@GetMapping(value = "/AsiakasList")
-	public List<Asiakas> getAsiakass() {
+	public List<Asiakas> getAsiakas() {
 		return AsiakasService.findAll();
 	
 	}
 	
-	@PostMapping(value = "/createEmp")
-	public void createAsiakas(@RequestBody Asiakas emp) {
-		 AsiakasService.insertAsiakas(emp);
+	@PostMapping(value = "/createAsiakas")
+	public void createAsiakas(@RequestBody Asiakas asiakas) {
+		 AsiakasService.insertAsiakas(asiakas);
 	
 	}
-	@PutMapping(value = "/updateEmp")
-	public void updateAsiakas(@RequestBody Asiakas emp) {
-		 AsiakasService.updateAsiakas(emp);
+	@PutMapping(value = "/updateAsiakas")
+	public void updateAsiakas(@RequestBody Asiakas asiakas) {
+		 AsiakasService.updateAsiakas(asiakas);
 	
 	}
-	@PutMapping(value = "/executeUpdateEmp")
-	public void executeUpdateAsiakas(@RequestBody Asiakas emp) {
-		 AsiakasService.executeUpdateAsiakas(emp);
-	
-	}
-	
-	@DeleteMapping(value = "/deleteEmpById")
-	public void deleteAsiakas(@RequestBody Asiakas emp) {
-		 AsiakasService.deleteAsiakas(emp);
+	@PutMapping(value = "/executeUpdateAsiakas")
+	public void executeUpdateAsiakas(@RequestBody Asiakas asiakas) {
+		 AsiakasService.executeUpdateAsiakas(asiakas);
 	
 	}
 	
+	@DeleteMapping(value = "/deleteAsiakasById")
+	public void deleteAsiakas(@RequestBody Asiakas asiakas) {
+		 AsiakasService.deleteAsiakas(asiakas);
 	
+    }
 }

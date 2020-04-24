@@ -8,11 +8,11 @@ public interface SopimusDao {
 
 	List<Sopimus> findAll();
 
-	void insertSopimus(Sopimus emp);
+	void insertSopimus(Sopimus sopimus);
 
-	void updateSopimus(Sopimus emp);
+	void updateSopimus(Sopimus sopimus);
 
-	void executeUpdateSopimus(Sopimus emp);
+	void executeUpdateSopimus(Sopimus sopimus);
 
-	public void deleteSopimus(Sopimus emp);
+	public void deleteSopimus(Sopimus sopimus);
 }

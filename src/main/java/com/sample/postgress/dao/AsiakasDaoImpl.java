@@ -29,11 +29,11 @@ public class AsiakasDaoImpl implements AsiakasDao{
 
 	@Override
 	public List<Asiakas> findAll() {
-		return template.query("select * from Asiakas", new AsiakasRowMapper());
+		return template.query("select * from asiakas", new AsiakasRowMapper());
 	}
 	@Override
 	public void insertAsiakas(Asiakas asiakas) {
-		 final String sql = "insert into Asiakas(asiakasid, nimi, puhelinnumero, sahkoposti, osoite, yritys)" +
+		 final String sql = "insert into asiakas(asiakasid, nimi, puhelinnumero, sahkoposti, osoite, yritys)" +
 		                    " values(:asiakasid,:nimi,:puhelinnumero,:sahkoposti, :osoite, :yritys)";
 		 
 	        KeyHolder holder = new GeneratedKeyHolder();
@@ -49,7 +49,7 @@ public class AsiakasDaoImpl implements AsiakasDao{
 	
 	@Override
 	public void updateAsiakas(Asiakas asiakas) {
-		 final String sql = "update Asiakas set nimi=:nimi, puhelinnumero=:puhelinnumero, sahkoposti=:sahkoposti, "+
+		 final String sql = "update asiakas set nimi=:nimi, puhelinnumero=:puhelinnumero, sahkoposti=:sahkoposti, "+
 		                    "osoite=:osoite, yritys=:yritys where asiakasid=:asiakasid";
 		 
 	        KeyHolder holder = new GeneratedKeyHolder();
@@ -65,7 +65,7 @@ public class AsiakasDaoImpl implements AsiakasDao{
 	
 	@Override
 	public void executeUpdateAsiakas(Asiakas asiakas) {
-		 final String sql = "update Asiakas set nimi=:nimi, puhelinnumero=:puhelinnumero, sahkoposti=:sahkoposti, " +
+		 final String sql = "update asiakas set nimi=:nimi, puhelinnumero=:puhelinnumero, sahkoposti=:sahkoposti, " +
 		                    "osoite=:osoite, yritys=:yritys where asiakasid=:asiakasid";
 			 
 		 Map<String,Object> map=new HashMap<String,Object>();  
@@ -88,7 +88,7 @@ public class AsiakasDaoImpl implements AsiakasDao{
 	
 	@Override
 	public void deleteAsiakas(Asiakas asiakas) {
-		 final String sql = "delete from Asiakas where asiakasid=:asiakasid";
+		 final String sql = "delete from asiakas where asiakasid=:asiakasid";
 			 
 		 Map<String,Object> map=new HashMap<String,Object>();  
 		 map.put("asiakasid", asiakas.getasiakasid());

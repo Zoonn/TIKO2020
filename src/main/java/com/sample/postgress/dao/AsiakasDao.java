@@ -8,11 +8,11 @@ public interface AsiakasDao {
 
 	List<Asiakas> findAll();
 
-	void insertAsiakas(Asiakas emp);
+	void insertAsiakas(Asiakas asiakas);
 
-	void updateAsiakas(Asiakas emp);
+	void updateAsiakas(Asiakas asiakas);
 
-	void executeUpdateAsiakas(Asiakas emp);
+	void executeUpdateAsiakas(Asiakas asiakas);
 
-	public void deleteAsiakas(Asiakas emp);
+	public void deleteAsiakas(Asiakas asiakas);
 }

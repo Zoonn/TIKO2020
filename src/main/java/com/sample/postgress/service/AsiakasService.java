@@ -7,12 +7,12 @@ import com.sample.postgress.entity.Asiakas;
 public interface AsiakasService {
 	List<Asiakas> findAll();
 
-	void insertAsiakas(Asiakas emp);
+	void insertAsiakas(Asiakas asiakas);
 
-	void updateAsiakas(Asiakas emp);
+	void updateAsiakas(Asiakas asiakas);
 
-	void executeUpdateAsiakas(Asiakas emp);
+	void executeUpdateAsiakas(Asiakas asiakas);
 
-	void deleteAsiakas(Asiakas emp);
+	void deleteAsiakas(Asiakas asiakas);
 	
 }

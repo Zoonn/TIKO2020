@@ -12,9 +12,9 @@ public class TyoRowMapper implements RowMapper<Tyo> {
 	@Override
 	public Tyo mapRow(ResultSet rs, int arg1) throws SQLException {
 		Tyo tyo = new Tyo();
-		tyo.settyoid(rs.getInt(001));
-		tyo.settyonnimi(rs.getString("Rakennuskohde Mielikuvituspolku"));
-		tyo.setvero(rs.getInt(24));
+		tyo.settyoid(rs.getInt("tyoid"));
+		tyo.settyonnimi(rs.getString("tyonnimi"));
+		tyo.setvero(rs.getInt("vero"));
  
         return tyo;
 	}

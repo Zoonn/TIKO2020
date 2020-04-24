@@ -8,11 +8,11 @@ public interface LaskuDao {
 
 	List<Lasku> findAll();
 
-	void insertLasku(Lasku emp);
+	void insertLasku(Lasku lasku);
 
-	void updateLasku(Lasku emp);
+	void updateLasku(Lasku lasku);
 
-	void executeUpdateLasku(Lasku emp);
+	void executeUpdateLasku(Lasku lasku);
 
-	public void deleteLasku(Lasku emp);
+	public void deleteLasku(Lasku lasku);
 }

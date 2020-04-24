@@ -8,11 +8,11 @@ public interface TyoluetteloDao {
 
 	List<Tyoluettelo> findAll();
 
-	void insertTyoluettelo(Tyoluettelo emp);
+	void insertTyoluettelo(Tyoluettelo tyoluettelo);
 
-	void updateTyoluettelo(Tyoluettelo emp);
+	void updateTyoluettelo(Tyoluettelo tyoluettelo);
 
-	void executeUpdateTyoluettelo(Tyoluettelo emp);
+	void executeUpdateTyoluettelo(Tyoluettelo tyoluettelo);
 
-	public void deleteTyoluettelo(Tyoluettelo emp);
+	public void deleteTyoluettelo(Tyoluettelo tyoluettelo);
 }

@@ -8,11 +8,11 @@ public interface TyoDao {
 
 	List<Tyo> findAll();
 
-	void insertTyo(Tyo emp);
+	void insertTyo(Tyo tyo);
 
-	void updateTyo(Tyo emp);
+	void updateTyo(Tyo tyo);
 
-	void executeUpdateTyo(Tyo emp);
+	void executeUpdateTyo(Tyo tyo);
 
-	public void deleteTyo(Tyo emp);
+	public void deleteTyo(Tyo tyo);
 }
