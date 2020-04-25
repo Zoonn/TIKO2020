@@ -16,7 +16,7 @@ import com.sample.postgress.entity.Tarvikkeet;
 import com.sample.postgress.service.TarvikkeetService;
 
 @RestController
-@RequestMapping("/postgressApp")
+@RequestMapping("/tarvikkeet")
 public class TarvikkeetController {
 
     @Resource 

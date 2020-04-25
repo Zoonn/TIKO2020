@@ -4,49 +4,85 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.sample.postgress.entity.Asiakas;
 import com.sample.postgress.service.AsiakasService;
 
 @RestController
-@RequestMapping("/postgressApp")
+@RequestMapping("/asiakas")
 public class AsiakasController {
 
 	@Resource 
 	AsiakasService AsiakasService;
 	
-	@GetMapping(value = "/AsiakasList")
+	@GetMapping(value = "/list")
 	public List<Asiakas> getAsiakas() {
 		return AsiakasService.findAll();
 	
 	}
+
+	@RequestMapping(value= {"/", "/lista"}, method=RequestMethod.GET)
+	public ModelAndView getAsiakkaat() {
+	ModelAndView model = new ModelAndView();
+	List<Asiakas> list = AsiakasService.findAll();
 	
-	@PostMapping(value = "/createAsiakas")
-	public void createAsiakas(@RequestBody Asiakas asiakas) {
-		 AsiakasService.insertAsiakas(asiakas);
-	
+	model.addObject("asiakas_list", list);
+	model.setViewName("asiakas_list");
+	return model;
 	}
-	@PutMapping(value = "/updateAsiakas")
-	public void updateAsiakas(@RequestBody Asiakas asiakas) {
-		 AsiakasService.updateAsiakas(asiakas);
+
+	@RequestMapping(value="/update/{asiakasid}", method=RequestMethod.GET)
+	public ModelAndView editAsiakas(@PathVariable int asiakasid) {
+	ModelAndView model = new ModelAndView();
 	
+	Asiakas asiakas = AsiakasService.findAsiakasById(asiakasid);
+	model.addObject("asiakasForm", asiakas);
+	
+	model.setViewName("asiakas_form");
+	return model;
 	}
-	@PutMapping(value = "/executeUpdateAsiakas")
-	public void executeUpdateAsiakas(@RequestBody Asiakas asiakas) {
-		 AsiakasService.executeUpdateAsiakas(asiakas);
 	
+	@RequestMapping(value="/add", method=RequestMethod.GET)
+	public ModelAndView addAsiakas() {
+	ModelAndView model = new ModelAndView();
+	
+	Asiakas asiakas = new Asiakas();
+	System.out.println("new asiakas made:"+ asiakas + asiakas.getasiakasid());
+	model.addObject("asiakasForm", asiakas);
+	
+	model.setViewName("asiakas_form");
+	return model;
 	}
 	
-	@DeleteMapping(value = "/deleteAsiakasById")
-	public void deleteAsiakas(@RequestBody Asiakas asiakas) {
-		 AsiakasService.deleteAsiakas(asiakas);
+	@RequestMapping(value="/save", method=RequestMethod.POST)
+	public ModelAndView saveOrUpdate(@ModelAttribute("asiakasForm") Asiakas asiakas) {
+	if (asiakas.getasiakasid() == ""){
+		System.out.println("\n!!! ASIAKASID not found. Creating new asiakas...\n");
+		AsiakasService.insertAsiakas(asiakas);
+		}
+	else if(asiakas.getasiakasid() != null) {
+	    System.out.println("\n!!! ASIAKASID found. Updating asiakas...\n"+ asiakas+ " id:"+asiakas.getasiakasid());
+	    AsiakasService.updateAsiakas(asiakas);
+	} 
+	else{
+		System.out.println("ERROR");
+	  }
 	
-    }
+	
+	return new ModelAndView("redirect:/asiakas/lista");
+	}
+	
+	@RequestMapping(value="/delete/{asiakasid}", method=RequestMethod.GET)
+	public ModelAndView deleteAsiakas(@PathVariable("asiakasid") int asiakasid) {
+	AsiakasService.deleteAsiakas(asiakasid);
+	
+	return new ModelAndView("redirect:/asiakas/lista");
+ }
 }

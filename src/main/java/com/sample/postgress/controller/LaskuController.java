@@ -16,7 +16,7 @@ import com.sample.postgress.entity.Lasku;
 import com.sample.postgress.service.LaskuService;
 
 @RestController
-@RequestMapping("/postgressApp")
+@RequestMapping("/lasku")
 public class LaskuController {
 
     @Resource 

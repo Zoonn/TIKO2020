@@ -33,8 +33,13 @@ public class AsiakasServiceImpl implements AsiakasService{
 	}
 
 	@Override
-	public void deleteAsiakas(Asiakas emp) {
-		AsiakasDao.deleteAsiakas(emp);
+	public void deleteAsiakas(int asiakasid) {
+		AsiakasDao.deleteAsiakas(asiakasid);
 		
+	}
+
+	@Override
+	public Asiakas findAsiakasById(int asiakasid) {
+	    return AsiakasDao.findAsiakasById(asiakasid);
 	}
 }

@@ -16,7 +16,7 @@ import com.sample.postgress.entity.Tarvikeluettelo;
 import com.sample.postgress.service.TarvikeluetteloService;
 
 @RestController
-@RequestMapping("/postgressApp")
+@RequestMapping("/tarvikeluettelo")
 public class TarvikeluetteloController {
 
     @Resource 

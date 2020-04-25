@@ -13,6 +13,9 @@ public interface AsiakasService {
 
 	void executeUpdateAsiakas(Asiakas asiakas);
 
-	void deleteAsiakas(Asiakas asiakas);
+	void deleteAsiakas(int asiakasid);
+
+	Asiakas findAsiakasById(int asiakasid);
+
 	
 }

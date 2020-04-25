@@ -14,5 +14,7 @@ public interface AsiakasDao {
 
 	void executeUpdateAsiakas(Asiakas asiakas);
 
-	public void deleteAsiakas(Asiakas asiakas);
+	public void deleteAsiakas(int asiakasid);
+
+	public Asiakas findAsiakasById(int asiakasid);
 }

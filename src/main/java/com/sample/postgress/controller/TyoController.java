@@ -16,7 +16,7 @@ import com.sample.postgress.entity.Tyo;
 import com.sample.postgress.service.TyoService;
 
 @RestController
-@RequestMapping("/postgressApp")
+@RequestMapping("/tyo")
 public class TyoController {
 
     @Resource 

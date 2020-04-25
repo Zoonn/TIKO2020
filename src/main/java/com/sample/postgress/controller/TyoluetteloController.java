@@ -11,12 +11,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.sample.postgress.entity.Tyoluettelo;
 import com.sample.postgress.service.TyoluetteloService;
 
 @RestController
-@RequestMapping("/postgressApp")
+@RequestMapping("/tyoluettelo")
 public class TyoluetteloController {
 
     @Resource 

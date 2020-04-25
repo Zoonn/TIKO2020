@@ -16,7 +16,7 @@ import com.sample.postgress.entity.Sopimus;
 import com.sample.postgress.service.SopimusService;
 
 @RestController
-@RequestMapping("/postgressApp")
+@RequestMapping("/sopimus")
 public class SopimusController {
 
     @Resource 

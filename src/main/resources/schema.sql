@@ -1,5 +1,6 @@
+
 CREATE TABLE asiakas (
-   asiakasid INT,
+   asiakasid SERIAL,
    nimi VARCHAR (255) NOT NULL,
    puhelinnumero INT,
    sahkoposti VARCHAR (255),
@@ -9,7 +10,7 @@ CREATE TABLE asiakas (
 );
 
 CREATE TABLE sopimus (
-   sopimusid INT,
+   sopimusid SERIAL,
    kuvaus VARCHAR (5000), --kuvaus työkeikasta
   -- kotivahennyskelpoisuus DECIMAL(19, 4), --rahaa (Pystyy varmaankin johtamaan?)
    osoite VARCHAR (255),
@@ -19,7 +20,7 @@ CREATE TABLE sopimus (
 );
 
 CREATE TABLE tarvikkeet (
-   tarvikeid INT,
+   tarvikeid SERIAL,
    tarvikenimi VARCHAR (255),
    yksikko VARCHAR (255),--kpl (esim. pistorasia) vai metri (esim. sähköjohto)
    mitta DECIMAL (20, 2), --numeerista tietoa yksikölle
@@ -39,9 +40,8 @@ CREATE TABLE tarvikeluettelo (
    FOREIGN KEY (sopimusid) REFERENCES sopimus(sopimusid),
    FOREIGN KEY (tarvikeid) REFERENCES tarvikkeet(tarvikeid)
 );
-
 CREATE TABLE tyo (
-   tyoid INT,
+   tyoid SERIAL,
    tyonnimi VARCHAR (255),
    vero INT DEFAULT 24, --veroprosentti työstä -> prosentti 0-100
    PRIMARY KEY(tyoid)
@@ -58,7 +58,7 @@ CREATE TABLE tyoluettelo (
 );
 
 CREATE TABLE lasku (
-   laskuid INT,
+   laskuid SERIAL,
    sopimusid INT,
    paivamaara DATE DEFAULT CURRENT_DATE,
    erapaiva DATE,
