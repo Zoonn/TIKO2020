@@ -17,18 +17,18 @@ public class AsiakasServiceImpl implements AsiakasService{
 		return AsiakasDao.findAll();
 	}
 	@Override
-	public void insertAsiakas(Asiakas emp) {
-		AsiakasDao.insertAsiakas(emp);
+	public void insertAsiakas(Asiakas asiakas) {
+		AsiakasDao.insertAsiakas(asiakas);
 		
 	}
 	@Override
-	public void updateAsiakas(Asiakas emp) {
-		AsiakasDao.updateAsiakas(emp);
+	public void updateAsiakas(Asiakas asiakas) {
+		AsiakasDao.updateAsiakas(asiakas);
 		
 	}
 	@Override
-	public void executeUpdateAsiakas(Asiakas emp) {
-		AsiakasDao.executeUpdateAsiakas(emp);
+	public void executeUpdateAsiakas(Asiakas asiakas) {
+		AsiakasDao.executeUpdateAsiakas(asiakas);
 		
 	}
 

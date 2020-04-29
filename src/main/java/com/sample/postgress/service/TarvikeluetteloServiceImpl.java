@@ -17,24 +17,30 @@ public class TarvikeluetteloServiceImpl implements TarvikeluetteloService{
 		return TarvikeluetteloDao.findAll();
 	}
 	@Override
-	public void insertTarvikeluettelo(Tarvikeluettelo emp) {
-		TarvikeluetteloDao.insertTarvikeluettelo(emp);
+	public void insertTarvikeluettelo(Tarvikeluettelo tarvikeluettelo) {
+		TarvikeluetteloDao.insertTarvikeluettelo(tarvikeluettelo);
 		
 	}
 	@Override
-	public void updateTarvikeluettelo(Tarvikeluettelo emp) {
-		TarvikeluetteloDao.updateTarvikeluettelo(emp);
+	public void updateTarvikeluettelo(Tarvikeluettelo tarvikeluettelo) {
+		TarvikeluetteloDao.updateTarvikeluettelo(tarvikeluettelo);
 		
 	}
 	@Override
-	public void executeUpdateTarvikeluettelo(Tarvikeluettelo emp) {
-		TarvikeluetteloDao.executeUpdateTarvikeluettelo(emp);
+	public void executeUpdateTarvikeluettelo(Tarvikeluettelo tarvikeluettelo) {
+		TarvikeluetteloDao.executeUpdateTarvikeluettelo(tarvikeluettelo);
 		
 	}
 
 	@Override
-	public void deleteTarvikeluettelo(Tarvikeluettelo emp) {
-		TarvikeluetteloDao.deleteTarvikeluettelo(emp);
+	public void deleteTarvikeluettelo(int sopimusid) {
+		TarvikeluetteloDao.deleteTarvikeluettelo(sopimusid);
 		
 	}
+
+	@Override
+	public Tarvikeluettelo findTarvikeluetteloById(int tarvikeid) {
+	    return TarvikeluetteloDao.findTarvikeluetteloById(tarvikeid);
+	}
 }
+

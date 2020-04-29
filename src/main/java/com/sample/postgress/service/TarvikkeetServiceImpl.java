@@ -17,24 +17,30 @@ public class TarvikkeetServiceImpl implements TarvikkeetService{
 		return TarvikkeetDao.findAll();
 	}
 	@Override
-	public void insertTarvikkeet(Tarvikkeet emp) {
-		TarvikkeetDao.insertTarvikkeet(emp);
+	public void insertTarvikkeet(Tarvikkeet tarvikkeet) {
+		TarvikkeetDao.insertTarvikkeet(tarvikkeet);
 		
 	}
 	@Override
-	public void updateTarvikkeet(Tarvikkeet emp) {
-		TarvikkeetDao.updateTarvikkeet(emp);
+	public void updateTarvikkeet(Tarvikkeet tarvikkeet) {
+		TarvikkeetDao.updateTarvikkeet(tarvikkeet);
 		
 	}
 	@Override
-	public void executeUpdateTarvikkeet(Tarvikkeet emp) {
-		TarvikkeetDao.executeUpdateTarvikkeet(emp);
+	public void executeUpdateTarvikkeet(Tarvikkeet tarvikkeet) {
+		TarvikkeetDao.executeUpdateTarvikkeet(tarvikkeet);
 		
 	}
 
 	@Override
-	public void deleteTarvikkeet(Tarvikkeet emp) {
-		TarvikkeetDao.deleteTarvikkeet(emp);
+	public void deleteTarvikkeet(int tarvikeid) {
+		TarvikkeetDao.deleteTarvikkeet(tarvikeid);
 		
 	}
+
+	@Override
+	public Tarvikkeet findTarvikeById(int tarvikeid) {
+	    return TarvikkeetDao.findTarvikkeetById(tarvikeid);
+	}
 }
+

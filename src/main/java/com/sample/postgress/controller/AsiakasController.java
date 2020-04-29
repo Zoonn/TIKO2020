@@ -34,7 +34,7 @@ public class AsiakasController {
 	List<Asiakas> list = AsiakasService.findAll();
 	
 	model.addObject("asiakas_list", list);
-	model.setViewName("asiakas_list");
+	model.setViewName("list");
 	return model;
 	}
 
@@ -76,13 +76,13 @@ public class AsiakasController {
 	  }
 	
 	
-	return new ModelAndView("redirect:/asiakas/lista");
+	return new ModelAndView("redirect:/");
 	}
 	
 	@RequestMapping(value="/delete/{asiakasid}", method=RequestMethod.GET)
 	public ModelAndView deleteAsiakas(@PathVariable("asiakasid") int asiakasid) {
 	AsiakasService.deleteAsiakas(asiakasid);
 	
-	return new ModelAndView("redirect:/asiakas/lista");
+	return new ModelAndView("redirect:/");
  }
 }

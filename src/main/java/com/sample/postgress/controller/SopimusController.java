@@ -4,13 +4,13 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.sample.postgress.entity.Sopimus;
 import com.sample.postgress.service.SopimusService;
@@ -19,34 +19,66 @@ import com.sample.postgress.service.SopimusService;
 @RequestMapping("/sopimus")
 public class SopimusController {
 
-    @Resource 
+	@Resource 
 	SopimusService SopimusService;
 	
-	@GetMapping(value = "/SopimusList")
+	@GetMapping(value = "/list")
 	public List<Sopimus> getSopimus() {
 		return SopimusService.findAll();
 	
 	}
+
+	@RequestMapping(value= {"/", "/lista"}, method=RequestMethod.GET)
+	public ModelAndView getAsiakkaat() {
+	ModelAndView model = new ModelAndView();
+	List<Sopimus> list = SopimusService.findAll();
 	
-	@PostMapping(value = "/createSopimus")
-	public void createSopimus(@RequestBody Sopimus sopimus) {
-		 SopimusService.insertSopimus(sopimus);
-	
+	model.addObject("sopimus_list", list);
+	model.setViewName("list");
+	return model;
 	}
-	@PutMapping(value = "/updateSopimus")
-	public void updateSopimus(@RequestBody Sopimus sopimus) {
-		 SopimusService.updateSopimus(sopimus);
+
+	@RequestMapping(value="/update/{Sopimusid}", method=RequestMethod.GET)
+	public ModelAndView editSopimus(@PathVariable int Sopimusid) {
+	ModelAndView model = new ModelAndView();
 	
+	Sopimus Sopimus = SopimusService.findSopimusById(Sopimusid);
+	model.addObject("SopimusForm", Sopimus);
+	
+	model.setViewName("sopimus_form");
+	return model;
 	}
-	@PutMapping(value = "/executeUpdateSopimus")
-	public void executeUpdateSopimus(@RequestBody Sopimus sopimus) {
-		 SopimusService.executeUpdateSopimus(sopimus);
 	
+	@RequestMapping(value="/add", method=RequestMethod.GET)
+	public ModelAndView addSopimus() {
+	ModelAndView model = new ModelAndView();
+	
+	Sopimus Sopimus = new Sopimus();
+	System.out.println("new Sopimus made:"+ Sopimus + Sopimus.getsopimusid());
+	model.addObject("SopimusForm", Sopimus);
+	
+	model.setViewName("sopimus_form");
+	return model;
 	}
 	
-	@DeleteMapping(value = "/deleteSopimusById")
-	public void deleteSopimus(@RequestBody Sopimus sopimus) {
-		 SopimusService.deleteSopimus(sopimus);
+	@RequestMapping(value="/save_new", method=RequestMethod.POST)
+	public ModelAndView saveOrUpdate(@ModelAttribute("SopimusForm") Sopimus Sopimus) {
+		SopimusService.insertSopimus(Sopimus);
+
+		return new ModelAndView("redirect:/");
+	}
 	
-    }
+	@RequestMapping(value="/save", method=RequestMethod.POST)
+	public ModelAndView savenew(@ModelAttribute("SopimusForm") Sopimus Sopimus) {
+	    SopimusService.updateSopimus(Sopimus);
+	
+		return new ModelAndView("redirect:/");
+	}
+	
+	@RequestMapping(value="/delete/{sopimusid}", method=RequestMethod.GET)
+	public ModelAndView deleteSopimus(@PathVariable("sopimusid") int sopimusid) {
+	SopimusService.deleteSopimus(sopimusid);
+	
+	return new ModelAndView("redirect:/");
+ }
 }

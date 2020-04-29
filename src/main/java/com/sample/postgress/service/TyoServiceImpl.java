@@ -17,24 +17,30 @@ public class TyoServiceImpl implements TyoService{
 		return TyoDao.findAll();
 	}
 	@Override
-	public void insertTyo(Tyo emp) {
-		TyoDao.insertTyo(emp);
+	public void insertTyo(Tyo tyo) {
+		TyoDao.insertTyo(tyo);
 		
 	}
 	@Override
-	public void updateTyo(Tyo emp) {
-		TyoDao.updateTyo(emp);
+	public void updateTyo(Tyo tyo) {
+		TyoDao.updateTyo(tyo);
 		
 	}
 	@Override
-	public void executeUpdateTyo(Tyo emp) {
-		TyoDao.executeUpdateTyo(emp);
+	public void executeUpdateTyo(Tyo tyo) {
+		TyoDao.executeUpdateTyo(tyo);
 		
 	}
 
 	@Override
-	public void deleteTyo(Tyo emp) {
-		TyoDao.deleteTyo(emp);
+	public void deleteTyo(int tyoid) {
+		TyoDao.deleteTyo(tyoid);
 		
 	}
+
+	@Override
+	public Tyo findTyoById(int tyoid) {
+	    return TyoDao.findTyoById(tyoid);
+	}
+
 }

@@ -15,7 +15,7 @@ public class TarvikkeetRowMapper implements RowMapper<Tarvikkeet> {
 		tarvikkeet.settarvikeid(rs.getInt("tarvikeid"));
 		tarvikkeet.settarvikenimi(rs.getString("tarvikenimi"));
 		tarvikkeet.setyksikko(rs.getString("yksikko"));
-		tarvikkeet.setmitta(rs.getInt("setmitta"));
+		tarvikkeet.setmitta(rs.getInt("mitta"));
 		tarvikkeet.setsisaanottohinta(rs.getDouble("sisaanottohinta"));
 		tarvikkeet.setvarastotilanne(rs.getInt("varastotilanne"));
 		tarvikkeet.setvero(rs.getInt("vero"));

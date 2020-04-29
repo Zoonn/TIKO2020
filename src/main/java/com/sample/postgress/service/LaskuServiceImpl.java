@@ -17,24 +17,30 @@ public class LaskuServiceImpl implements LaskuService{
 		return LaskuDao.findAll();
 	}
 	@Override
-	public void insertLasku(Lasku emp) {
-		LaskuDao.insertLasku(emp);
+	public void insertLasku(Lasku lasku) {
+		LaskuDao.insertLasku(lasku);
 		
 	}
 	@Override
-	public void updateLasku(Lasku emp) {
-		LaskuDao.updateLasku(emp);
+	public void updateLasku(Lasku lasku) {
+		LaskuDao.updateLasku(lasku);
 		
 	}
 	@Override
-	public void executeUpdateLasku(Lasku emp) {
-		LaskuDao.executeUpdateLasku(emp);
+	public void executeUpdateLasku(Lasku lasku) {
+		LaskuDao.executeUpdateLasku(lasku);
 		
 	}
 
 	@Override
-	public void deleteLasku(Lasku emp) {
-		LaskuDao.deleteLasku(emp);
+	public void deleteLasku(int laskuid) {
+		LaskuDao.deleteLasku(laskuid);
 		
 	}
+
+	@Override
+	public Lasku findLaskuById(int laskuid) {
+	    return LaskuDao.findLaskuById(laskuid);
+	}
+
 }

@@ -17,24 +17,30 @@ public class TyoluetteloServiceImpl implements TyoluetteloService{
 		return TyoluetteloDao.findAll();
 	}
 	@Override
-	public void insertTyoluettelo(Tyoluettelo emp) {
-		TyoluetteloDao.insertTyoluettelo(emp);
+	public void insertTyoluettelo(Tyoluettelo tyoluettelo) {
+		TyoluetteloDao.insertTyoluettelo(tyoluettelo);
 		
 	}
 	@Override
-	public void updateTyoluettelo(Tyoluettelo emp) {
-		TyoluetteloDao.updateTyoluettelo(emp);
+	public void updateTyoluettelo(Tyoluettelo tyoluettelo) {
+		TyoluetteloDao.updateTyoluettelo(tyoluettelo);
 		
 	}
 	@Override
-	public void executeUpdateTyoluettelo(Tyoluettelo emp) {
-		TyoluetteloDao.executeUpdateTyoluettelo(emp);
+	public void executeUpdateTyoluettelo(Tyoluettelo tyoluettelo) {
+		TyoluetteloDao.executeUpdateTyoluettelo(tyoluettelo);
 		
 	}
 
 	@Override
-	public void deleteTyoluettelo(Tyoluettelo emp) {
-		TyoluetteloDao.deleteTyoluettelo(emp);
+	public void deleteTyoluettelo(int sopimusid) {
+		TyoluetteloDao.deleteTyoluettelo(sopimusid);
 		
 	}
+
+	@Override
+	public Tyoluettelo findTyoluetteloById(int tyoid) {
+	    return TyoluetteloDao.findTyoluetteloById(tyoid);
+	}
 }
+

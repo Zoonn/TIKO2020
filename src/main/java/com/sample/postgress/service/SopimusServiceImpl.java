@@ -17,24 +17,30 @@ public class SopimusServiceImpl implements SopimusService{
 		return SopimusDao.findAll();
 	}
 	@Override
-	public void insertSopimus(Sopimus emp) {
-		SopimusDao.insertSopimus(emp);
+	public void insertSopimus(Sopimus sopimus) {
+		SopimusDao.insertSopimus(sopimus);
 		
 	}
 	@Override
-	public void updateSopimus(Sopimus emp) {
-		SopimusDao.updateSopimus(emp);
+	public void updateSopimus(Sopimus sopimus) {
+		SopimusDao.updateSopimus(sopimus);
 		
 	}
 	@Override
-	public void executeUpdateSopimus(Sopimus emp) {
-		SopimusDao.executeUpdateSopimus(emp);
+	public void executeUpdateSopimus(Sopimus sopimus) {
+		SopimusDao.executeUpdateSopimus(sopimus);
 		
 	}
 
 	@Override
-	public void deleteSopimus(Sopimus emp) {
-		SopimusDao.deleteSopimus(emp);
+	public void deleteSopimus(int sopimusid) {
+		SopimusDao.deleteSopimus(sopimusid);
 		
 	}
+
+	@Override
+	public Sopimus findSopimusById(int sopimusid) {
+	    return SopimusDao.findSopimusById(sopimusid);
+	}
 }
+

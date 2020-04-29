@@ -14,5 +14,7 @@ public interface SopimusDao {
 
 	void executeUpdateSopimus(Sopimus sopimus);
 
-	public void deleteSopimus(Sopimus sopimus);
+	void deleteSopimus(int sopimusid);
+
+	Sopimus findSopimusById(int sopimusid);
 }

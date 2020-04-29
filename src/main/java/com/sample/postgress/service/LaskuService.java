@@ -7,12 +7,14 @@ import com.sample.postgress.entity.Lasku;
 public interface LaskuService {
 	List<Lasku> findAll();
 
-	void insertLasku(Lasku emp);
+	void insertLasku(Lasku lasku);
 
-	void updateLasku(Lasku emp);
+	void updateLasku(Lasku lasku);
 
-	void executeUpdateLasku(Lasku emp);
+	void executeUpdateLasku(Lasku lasku);
 
-	void deleteLasku(Lasku emp);
+	void deleteLasku(int laskuid);
+
+	Lasku findLaskuById(int laskuid);
 	
 }

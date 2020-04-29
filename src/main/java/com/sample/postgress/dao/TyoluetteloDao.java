@@ -14,5 +14,7 @@ public interface TyoluetteloDao {
 
 	void executeUpdateTyoluettelo(Tyoluettelo tyoluettelo);
 
-	public void deleteTyoluettelo(Tyoluettelo tyoluettelo);
+	void deleteTyoluettelo(int sopimusid);
+
+	Tyoluettelo findTyoluetteloById(int tyoid);
 }

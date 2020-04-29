@@ -13,6 +13,8 @@ public interface TyoService {
 
 	void executeUpdateTyo(Tyo emp);
 
-	void deleteTyo(Tyo emp);
+	void deleteTyo(int tyoid);
+
+	Tyo findTyoById(int tyoid);
 	
 }

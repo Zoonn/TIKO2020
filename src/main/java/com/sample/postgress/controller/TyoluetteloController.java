@@ -4,13 +4,14 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.servlet.ModelAndView;
+
 import com.sample.postgress.entity.Tyoluettelo;
 import com.sample.postgress.service.TyoluetteloService;
 
@@ -18,34 +19,65 @@ import com.sample.postgress.service.TyoluetteloService;
 @RequestMapping("/tyoluettelo")
 public class TyoluetteloController {
 
-    @Resource 
+	@Resource 
 	TyoluetteloService TyoluetteloService;
 	
-	@GetMapping(value = "/TyoluetteloList")
+	@GetMapping(value = "/list")
 	public List<Tyoluettelo> getTyoluettelo() {
 		return TyoluetteloService.findAll();
 	
 	}
+
+	@RequestMapping(value= {"/", "/lista"}, method=RequestMethod.GET)
+	public ModelAndView getTyot() {
+	ModelAndView model = new ModelAndView();
+	List<Tyoluettelo> list = TyoluetteloService.findAll();
 	
-	@PostMapping(value = "/createTyoluettelo")
-	public void createTyoluettelo(@RequestBody Tyoluettelo tyoluettelo) {
-		 TyoluetteloService.insertTyoluettelo(tyoluettelo);
-	
+	model.addObject("tyoluettelo_list", list);
+	model.setViewName("list");
+	return model;
 	}
-	@PutMapping(value = "/updateTyoluettelo")
-	public void updateTyoluettelo(@RequestBody Tyoluettelo tyoluettelo) {
-		 TyoluetteloService.updateTyoluettelo(tyoluettelo);
+
+	@RequestMapping(value="/update/{tyoid}", method=RequestMethod.GET)
+	public ModelAndView editTyoluettelo(@PathVariable int tyoid) {
+	ModelAndView model = new ModelAndView();
 	
+	Tyoluettelo tyoluettelo = TyoluetteloService.findTyoluetteloById(tyoid);
+	model.addObject("tyoluetteloForm", tyoluettelo);
+	
+	model.setViewName("tyoluettelo_form");
+	return model;
 	}
-	@PutMapping(value = "/executeUpdateTyoluettelo")
-	public void executeUpdateTyoluettelo(@RequestBody Tyoluettelo tyoluettelo) {
-		 TyoluetteloService.executeUpdateTyoluettelo(tyoluettelo);
 	
+	@RequestMapping(value="/add", method=RequestMethod.GET)
+	public ModelAndView addTyoluettelo() {
+	ModelAndView model = new ModelAndView();
+	
+	Tyoluettelo Tyoluettelo = new Tyoluettelo();
+	System.out.println("new Tyoluettelo made:"+ Tyoluettelo +"id: "+ Tyoluettelo.getsopimusid());
+	model.addObject("tyoluetteloForm", Tyoluettelo);
+	
+	model.setViewName("tyoluettelo_form");
+	return model;
 	}
 	
-	@DeleteMapping(value = "/deleteTyoluetteloById")
-	public void deleteTyoluettelo(@RequestBody Tyoluettelo tyoluettelo) {
-		 TyoluetteloService.deleteTyoluettelo(tyoluettelo);
+	@RequestMapping(value="/save_new", method=RequestMethod.POST)
+	public ModelAndView saveOrUpdate(@ModelAttribute("TyoluetteloForm") Tyoluettelo Tyoluettelo) {
+		TyoluetteloService.insertTyoluettelo(Tyoluettelo);
+		return new ModelAndView("redirect:/");
+	}
+
+	@RequestMapping(value="/save", method=RequestMethod.POST)
+	public ModelAndView savenew(@ModelAttribute("TyoluetteloForm") Tyoluettelo Tyoluettelo) {
+	    TyoluetteloService.updateTyoluettelo(Tyoluettelo);
 	
-    } 
+	return new ModelAndView("redirect:/");
+	}
+	
+	@RequestMapping(value="/delete/{sopimusid}", method=RequestMethod.GET)
+	public ModelAndView deleteTyoluettelo(@PathVariable("sopimusid") int sopimusid) {
+	TyoluetteloService.deleteTyoluettelo(sopimusid);
+	
+	return new ModelAndView("redirect:/");
+ }
 }

@@ -6,14 +6,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.PreparedStatementCallback;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.jdbc.core.namedparam.SqlParameterSource;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.sample.postgress.entity.Tyo;
@@ -25,7 +25,9 @@ public class TyoDaoImpl implements TyoDao{
 	public TyoDaoImpl(NamedParameterJdbcTemplate template) {  
         this.template = template;  
     }  
-	NamedParameterJdbcTemplate template;  
+	NamedParameterJdbcTemplate template;
+	@Autowired
+	private JdbcTemplate jdbcTemplate;  
 
 	@Override
 	public List<Tyo> findAll() {
@@ -34,27 +36,18 @@ public class TyoDaoImpl implements TyoDao{
 	@Override
 	public void insertTyo(Tyo tyo) {
 		 final String sql = "insert into tyo(tyoid, tyonnimi, vero) " +
-		                    " values(:tyoid,:tyonnimi,:vero)";
-		 
-	        KeyHolder holder = new GeneratedKeyHolder();
-	        SqlParameterSource param = new MapSqlParameterSource()
-					.addValue("tyoid", tyo.gettyoid())
-					.addValue("tyonnimi", tyo.gettyonnimi())
-					.addValue("vero", tyo.getvero());
-	        template.update(sql,param, holder);
+							" values(?,?,?)";
+							
+		jdbcTemplate.update(sql, tyo.gettyoid(), tyo.gettyonnimi(), tyo.getvero());
 	}
 	
 	@Override
 	public void updateTyo(Tyo tyo) {
-		 final String sql = "update tyo set tyonnimi=:tyonnimi, vero=:vero, "+
-		                    " where tyoid=:tyoid";
-		 
-	        KeyHolder holder = new GeneratedKeyHolder();
-	        SqlParameterSource param = new MapSqlParameterSource()
-					.addValue("tyoid", tyo.gettyoid())
-					.addValue("tyonnimi", tyo.gettyonnimi())
-					.addValue("vero", tyo.getvero());
-	        template.update(sql,param, holder);
+		 final String sql = "update tyo set tyonnimi=?, vero=? "+
+		                    " where tyoid=?";
+		
+		jdbcTemplate.update(sql, tyo.gettyonnimi(), tyo.getvero(), tyo.gettyoid());
+
 	}
 	
 	@Override
@@ -78,18 +71,16 @@ public class TyoDaoImpl implements TyoDao{
 	}
 	
 	@Override
-	public void deleteTyo(Tyo tyo) {
-		 final String sql = "delete from tyo where tyoid=:tyoid";
-			 
-		 Map<String,Object> map=new HashMap<String,Object>();  
-		 map.put("tyoid", tyo.gettyoid());
-	
-		 template.execute(sql,map,new PreparedStatementCallback<Object>() {  
-			    @Override  
-			    public Object doInPreparedStatement(PreparedStatement ps)  
-			            throws SQLException, DataAccessException {  
-			        return ps.executeUpdate();  
-			    }  
-			});  
+	public void deleteTyo(int tyoid) {
+		 final String sql = "delete from tyo where tyoid=?";
+		 jdbcTemplate.update(sql, tyoid); 
+	}	
+	@Override
+	public Tyo findTyoById(int tyoid) {
+		String query = "SELECT * FROM tyo WHERE tyoid = ?";
+		RowMapper<Tyo> rowMapper = new BeanPropertyRowMapper<Tyo>(Tyo.class);
+		Tyo tyo = jdbcTemplate.queryForObject(query, rowMapper, tyoid);
+  
+        return tyo;
 	}	
 }

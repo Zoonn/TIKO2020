@@ -14,5 +14,7 @@ public interface TarvikeluetteloDao {
 
 	void executeUpdateTarvikeluettelo(Tarvikeluettelo tarvikeluettelo);
 
-	public void deleteTarvikeluettelo(Tarvikeluettelo tarvikeluettelo);
+	void deleteTarvikeluettelo(int sopimusid);
+
+	Tarvikeluettelo findTarvikeluetteloById(int tarvikeid);
 }

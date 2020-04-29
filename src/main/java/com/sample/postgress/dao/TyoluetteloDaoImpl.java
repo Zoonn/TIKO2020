@@ -6,14 +6,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.PreparedStatementCallback;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.jdbc.core.namedparam.SqlParameterSource;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.sample.postgress.entity.Tyoluettelo;
@@ -26,6 +26,8 @@ public class TyoluetteloDaoImpl implements TyoluetteloDao{
         this.template = template;  
     }  
 	NamedParameterJdbcTemplate template;  
+	@Autowired
+	private JdbcTemplate jdbcTemplate;
 
 	@Override
 	public List<Tyoluettelo> findAll() {
@@ -34,29 +36,18 @@ public class TyoluetteloDaoImpl implements TyoluetteloDao{
 	@Override
 	public void insertTyoluettelo(Tyoluettelo tyoluettelo) {
 		 final String sql = "insert into tyoluettelo(sopimusid, tyoid, maara, alennus)" +
-		                    " values(:sopimusid,:tyoid,:maara, :alennus)";
+		                    " values(?,?,?,?)";
 		 
-	        KeyHolder holder = new GeneratedKeyHolder();
-	        SqlParameterSource param = new MapSqlParameterSource()
-					.addValue("sopimusid", tyoluettelo.getsopimusid())
-					.addValue("maara", tyoluettelo.getmaara())
-					.addValue("tyoid", tyoluettelo.gettyoid())
-					.addValue("alennus", tyoluettelo.getalennus());
-	        template.update(sql,param, holder);
+		jdbcTemplate.update(sql, tyoluettelo.getsopimusid(), tyoluettelo.gettyoid(), tyoluettelo.getmaara(), tyoluettelo.getalennus());
 	}
 	
 	@Override
 	public void updateTyoluettelo(Tyoluettelo tyoluettelo) {
-		 final String sql = "update tyoluettelo set sopimusid=:sopimusid, tyoid=:tyoid, maara=:maara, "+
-		                    "alennus=:alennus, where sopimusid=:sopimusid";
+		 final String sql = "update tyoluettelo set tyoid=?, maara=?, "+
+		                    "alennus=? where sopimusid=?";
 		 
-	        KeyHolder holder = new GeneratedKeyHolder();
-	        SqlParameterSource param = new MapSqlParameterSource()
-					.addValue("sopimusid", tyoluettelo.getsopimusid())
-					.addValue("maara", tyoluettelo.getmaara())
-					.addValue("tyoid", tyoluettelo.gettyoid())
-					.addValue("alennus", tyoluettelo.getalennus());
-	        template.update(sql,param, holder);
+		jdbcTemplate.update(sql, tyoluettelo.gettyoid(), tyoluettelo.getmaara(),
+		tyoluettelo.getalennus(), tyoluettelo.getsopimusid());
 	}
 	
 	@Override
@@ -81,18 +72,16 @@ public class TyoluetteloDaoImpl implements TyoluetteloDao{
 	}
 	
 	@Override
-	public void deleteTyoluettelo(Tyoluettelo tyoluettelo) {
-		 final String sql = "delete from tyoluettelo where sopimusid=:sopimusid";
-			 
-		 Map<String,Object> map=new HashMap<String,Object>();  
-		 map.put("sopimusid", tyoluettelo.getsopimusid());
-	
-		 template.execute(sql,map,new PreparedStatementCallback<Object>() {  
-			    @Override  
-			    public Object doInPreparedStatement(PreparedStatement ps)  
-			            throws SQLException, DataAccessException {  
-			        return ps.executeUpdate();  
-			    }  
-			});  
+	public void deleteTyoluettelo(int sopimusid) {
+		 final String sql = "delete from tyoluettelo where sopimusid=?";
+		 jdbcTemplate.update(sql, sopimusid); 
+	}	
+	@Override
+	public Tyoluettelo findTyoluetteloById(int tyoid) {
+		String query = "SELECT * FROM tyoluettelo WHERE tyoid = ?";
+		RowMapper<Tyoluettelo> rowMapper = new BeanPropertyRowMapper<Tyoluettelo>(Tyoluettelo.class);
+		Tyoluettelo tyoluettelo = jdbcTemplate.queryForObject(query, rowMapper, tyoid);
+  
+        return tyoluettelo;
 	}	
 }

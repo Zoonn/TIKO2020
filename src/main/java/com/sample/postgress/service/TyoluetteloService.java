@@ -7,12 +7,14 @@ import com.sample.postgress.entity.Tyoluettelo;
 public interface TyoluetteloService {
 	List<Tyoluettelo> findAll();
 
-	void insertTyoluettelo(Tyoluettelo emp);
+	void insertTyoluettelo(Tyoluettelo tyoluettelo);
 
-	void updateTyoluettelo(Tyoluettelo emp);
+	void updateTyoluettelo(Tyoluettelo tyoluettelo);
 
-	void executeUpdateTyoluettelo(Tyoluettelo emp);
+	void executeUpdateTyoluettelo(Tyoluettelo tyoluettelo);
 
-	void deleteTyoluettelo(Tyoluettelo emp);
+	void deleteTyoluettelo(int sopimusid);
+
+	Tyoluettelo findTyoluetteloById(int tyoid);
 	
 }

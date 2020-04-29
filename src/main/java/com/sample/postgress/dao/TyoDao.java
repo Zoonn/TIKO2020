@@ -14,5 +14,7 @@ public interface TyoDao {
 
 	void executeUpdateTyo(Tyo tyo);
 
-	public void deleteTyo(Tyo tyo);
+	void deleteTyo(int tyoid);
+
+	Tyo findTyoById(int tyoid);
 }

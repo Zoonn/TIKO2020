@@ -14,5 +14,7 @@ public interface LaskuDao {
 
 	void executeUpdateLasku(Lasku lasku);
 
-	public void deleteLasku(Lasku lasku);
+	void deleteLasku(int laskuid);
+
+	Lasku findLaskuById(int laskuid);
 }

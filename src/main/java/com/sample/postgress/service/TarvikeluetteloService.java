@@ -7,12 +7,14 @@ import com.sample.postgress.entity.Tarvikeluettelo;
 public interface TarvikeluetteloService {
 	List<Tarvikeluettelo> findAll();
 
-	void insertTarvikeluettelo(Tarvikeluettelo emp);
+	void insertTarvikeluettelo(Tarvikeluettelo tarvikeluettelo);
 
-	void updateTarvikeluettelo(Tarvikeluettelo emp);
+	void updateTarvikeluettelo(Tarvikeluettelo tarvikeluettelo);
 
-	void executeUpdateTarvikeluettelo(Tarvikeluettelo emp);
+	void executeUpdateTarvikeluettelo(Tarvikeluettelo tarvikeluettelo);
 
-	void deleteTarvikeluettelo(Tarvikeluettelo emp);
+	void deleteTarvikeluettelo(int sopimusid);
+
+	Tarvikeluettelo findTarvikeluetteloById(int sopimusid);
 	
 }

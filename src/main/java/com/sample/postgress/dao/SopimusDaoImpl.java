@@ -6,14 +6,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.PreparedStatementCallback;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.jdbc.core.namedparam.SqlParameterSource;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.sample.postgress.entity.Sopimus;
@@ -26,6 +26,8 @@ public class SopimusDaoImpl implements SopimusDao{
         this.template = template;  
     }  
 	NamedParameterJdbcTemplate template;  
+	@Autowired
+	private JdbcTemplate jdbcTemplate;
 
 	@Override
 	public List<Sopimus> findAll() {
@@ -34,29 +36,19 @@ public class SopimusDaoImpl implements SopimusDao{
 	@Override
 	public void insertSopimus(Sopimus sopimus) {
 		 final String sql = "insert into sopimus(sopimusid, kuvaus, osoite, asiakasid)" +
-		                    " values(:sopimusid,:kuvaus,:osoite,:asiakasid)";
-		 
-	        KeyHolder holder = new GeneratedKeyHolder();
-	        SqlParameterSource param = new MapSqlParameterSource()
-					.addValue("sopimusid", sopimus.getsopimusid())
-					.addValue("kuvaus", sopimus.getkuvaus())
-					.addValue("asiakasid", sopimus.getasiakasid())
-					.addValue("osoite", sopimus.getosoite());
-	        template.update(sql,param, holder);
+							" values(?,?,?,?)";
+			
+		jdbcTemplate.update(sql,sopimus.getsopimusid(), sopimus.getkuvaus(), sopimus.getosoite(),
+		sopimus.getasiakasid());
 	}
 	
 	@Override
 	public void updateSopimus(Sopimus sopimus) {
-		 final String sql = "update sopimus set kuvaus=:kuvaus, osoite=:osoite, asiakasid=:asiakasid, "+
-		                    "osoite=:osoite, yritys=:yritys where sopimusid=:sopimusid";
-		 
-	        KeyHolder holder = new GeneratedKeyHolder();
-	        SqlParameterSource param = new MapSqlParameterSource()
-					.addValue("sopimusid", sopimus.getsopimusid())
-					.addValue("kuvaus", sopimus.getkuvaus())
-					.addValue("asiakasid", sopimus.getasiakasid())
-					.addValue("osoite", sopimus.getosoite());
-	        template.update(sql,param, holder);
+		 final String sql = "update sopimus set kuvaus=?, osoite=?, asiakasid=? "+
+							" where sopimusid=?";
+							
+		jdbcTemplate.update(sql, sopimus.getkuvaus(), sopimus.getosoite(), sopimus.getasiakasid(),
+				sopimus.getsopimusid());		
 	}
 	
 	@Override
@@ -81,18 +73,16 @@ public class SopimusDaoImpl implements SopimusDao{
 	}
 	
 	@Override
-	public void deleteSopimus(Sopimus sopimus) {
-		 final String sql = "delete from sopimus where sopimusid=:sopimusid";
-			 
-		 Map<String,Object> map=new HashMap<String,Object>();  
-		 map.put("sopimusid", sopimus.getsopimusid());
-	
-		 template.execute(sql,map,new PreparedStatementCallback<Object>() {  
-			    @Override  
-			    public Object doInPreparedStatement(PreparedStatement ps)  
-			            throws SQLException, DataAccessException {  
-			        return ps.executeUpdate();  
-			    }  
-			});  
+	public void deleteSopimus(int sopimusid) {
+		 final String sql = "delete from sopimus where sopimusid=?";
+		 jdbcTemplate.update(sql, sopimusid); 
+	}	
+	@Override
+	public Sopimus findSopimusById(int sopimusid) {
+		String query = "SELECT * FROM sopimus WHERE sopimusid = ?";
+		RowMapper<Sopimus> rowMapper = new BeanPropertyRowMapper<Sopimus>(Sopimus.class);
+		Sopimus sopimus = jdbcTemplate.queryForObject(query, rowMapper, sopimusid);
+  
+        return sopimus;
 	}	
 }

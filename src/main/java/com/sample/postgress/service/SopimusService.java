@@ -7,12 +7,14 @@ import com.sample.postgress.entity.Sopimus;
 public interface SopimusService {
 	List<Sopimus> findAll();
 
-	void insertSopimus(Sopimus emp);
+	void insertSopimus(Sopimus sopimusid);
 
-	void updateSopimus(Sopimus emp);
+	void updateSopimus(Sopimus sopimusid);
 
-	void executeUpdateSopimus(Sopimus emp);
+	void executeUpdateSopimus(Sopimus sopimusid);
 
-	void deleteSopimus(Sopimus emp);
+	void deleteSopimus(int sopimusid);
+
+	Sopimus findSopimusById(int sopimusid);
 	
 }
